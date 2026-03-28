@@ -1608,7 +1608,7 @@ function checkout() {
   const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
   const lines = cart.map(c=>`• ${c.name} (${c.brand}) × ${c.qty} = ₹${(c.price*c.qty).toLocaleString('en-IN')}`).join('%0A');
   const msg = `Hi SafeSpark Electrics!%0AI'd like to place an order:%0A%0A${lines}%0A%0ATotal: ₹${total.toLocaleString('en-IN')}%0A%0APlease confirm availability and delivery.`;
-  window.open(`https://wa.me/919876543210?text=${msg}`,'_blank');
+  window.open(`https://wa.me/919997866880?text=${msg}`,'_blank');
 }
 
 // ── CALCULATOR ──
