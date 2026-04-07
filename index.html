@@ -41,6 +41,334 @@ body {
 ::-webkit-scrollbar-track { background: #EEF5FF; }
 ::-webkit-scrollbar-thumb { background: var(--electric-blue); border-radius: 10px; }
 
+/* ── TOP SEARCH BAR ── */
+.top-search-bar {
+  position: fixed;
+  top: 68px;
+  left: 0; right: 0;
+  z-index: 999;
+  background: rgba(255,255,255,0.98);
+  border-bottom: 2px solid var(--border);
+  padding: 10px 5%;
+  box-shadow: 0 4px 20px rgba(0,102,255,0.08);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.top-search-wrapper {
+  flex: 1;
+  position: relative;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.top-search-input {
+  width: 100%;
+  padding: 11px 48px 11px 18px;
+  border: 2px solid var(--border);
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: var(--off-white);
+  outline: none;
+  transition: all 0.2s;
+}
+.top-search-input:focus {
+  border-color: var(--electric-blue);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(0,102,255,0.08);
+}
+.top-search-icon {
+  position: absolute;
+  right: 16px; top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+.search-suggestions {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0; right: 0;
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.12);
+  z-index: 1100;
+  display: none;
+  max-height: 320px;
+  overflow-y: auto;
+}
+.search-suggestions.visible { display: block; }
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 16px;
+  cursor: pointer;
+  transition: background 0.15s;
+  border-bottom: 1px solid var(--border);
+  font-size: 0.88rem;
+  font-weight: 700;
+}
+.suggestion-item:last-child { border-bottom: none; }
+.suggestion-item:hover { background: var(--light-blue-bg); }
+.suggestion-emoji { font-size: 1.2rem; flex-shrink: 0; }
+.suggestion-name { flex: 1; color: var(--text-dark); }
+.suggestion-meta { font-size: 0.75rem; color: var(--text-light); font-weight: 600; }
+.suggestion-price { font-family:'Space Mono',monospace; font-size: 0.8rem; color: var(--electric-blue); font-weight: 700; }
+.suggestion-header {
+  padding: 7px 16px;
+  font-size: 0.68rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--text-light);
+  background: var(--off-white);
+  border-bottom: 1px solid var(--border);
+}
+
+/* Adjust body for double nav */
+body { padding-top: 116px; }
+
+/* ── CATEGORY QUICK PILLS (below search) ── */
+.cat-quick-row {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 8px 5% 8px;
+  background: white;
+  border-bottom: 2px solid var(--border);
+  position: fixed;
+  top: 116px;
+  left: 0; right: 0;
+  z-index: 998;
+  scrollbar-width: none;
+}
+.cat-quick-row::-webkit-scrollbar { display: none; }
+.cat-quick-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 18px;
+  border-radius: 50px;
+  border: 2px solid var(--border);
+  background: var(--off-white);
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--text-mid);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.18s;
+  font-family: 'Nunito', sans-serif;
+}
+.cat-quick-pill:hover { border-color: var(--electric-blue); color: var(--electric-blue); }
+.cat-quick-pill.active {
+  background: linear-gradient(135deg, var(--electric-blue), var(--purple));
+  border-color: transparent;
+  color: white;
+}
+
+/* Adjust for triple nav bar */
+body.has-cat-row { padding-top: 160px; }
+.hero { padding-top: 20px !important; min-height: calc(100vh - 160px) !important; }
+
+/* ── CART QUANTITY CONTROLS ── */
+.cart-item-qty {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 5px;
+}
+.ciq-btn {
+  width: 26px; height: 26px;
+  border: 2px solid var(--border);
+  border-radius: 7px;
+  background: white;
+  color: var(--text-dark);
+  font-size: 0.9rem;
+  font-weight: 800;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all 0.15s;
+  font-family: 'Nunito', sans-serif;
+  flex-shrink: 0;
+}
+.ciq-btn:hover { border-color: var(--electric-blue); color: var(--electric-blue); }
+.ciq-input {
+  width: 38px;
+  height: 26px;
+  border: 2px solid var(--border);
+  border-radius: 7px;
+  text-align: center;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--text-dark);
+  background: var(--off-white);
+  outline: none;
+}
+.ciq-input:focus { border-color: var(--electric-blue); }
+
+/* ── QUOTE FORM SECTION ── */
+#quote-section {
+  background: linear-gradient(135deg, #F0F7FF 0%, #FFF4E8 100%);
+  padding: 80px 5%;
+}
+.quote-container {
+  max-width: 720px;
+  margin: 0 auto;
+  background: white;
+  border: 2px solid var(--border);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 12px 50px rgba(0,102,255,0.1);
+}
+.quote-header {
+  background: linear-gradient(135deg, var(--orange), var(--amber));
+  padding: 2.5rem;
+  text-align: center;
+  color: white;
+}
+.quote-header h3 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 2.2rem;
+  letter-spacing: 3px;
+  margin-bottom: 0.4rem;
+}
+.quote-header p { color: rgba(255,255,255,0.9); font-weight: 600; font-size: 0.95rem; }
+.quote-body { padding: 2rem 2.5rem; }
+.quote-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2rem;
+}
+.quote-field { display: flex; flex-direction: column; gap: 6px; }
+.quote-field.full { grid-column: 1 / -1; }
+.quote-label {
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+}
+.quote-label .req { color: var(--orange); }
+.quote-input, .quote-textarea {
+  padding: 11px 16px;
+  border: 2px solid var(--border);
+  border-radius: 14px;
+  font-family: 'Nunito', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dark);
+  background: var(--off-white);
+  outline: none;
+  transition: all 0.2s;
+  width: 100%;
+}
+.quote-input:focus, .quote-textarea:focus {
+  border-color: var(--orange);
+  background: white;
+  box-shadow: 0 0 0 4px rgba(255,107,0,0.08);
+}
+.quote-textarea { resize: vertical; min-height: 90px; }
+.quote-prefill-notice {
+  background: var(--light-orange-bg);
+  border: 1.5px solid var(--amber);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--orange);
+  margin-bottom: 1.2rem;
+  display: none;
+}
+.quote-prefill-notice.visible { display: block; }
+.quote-submit-btn {
+  width: 100%;
+  background: linear-gradient(135deg, var(--orange), var(--amber));
+  color: white;
+  border: none;
+  padding: 15px 32px;
+  border-radius: 50px;
+  font-family: 'Nunito', sans-serif;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-top: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 6px 20px rgba(255,107,0,0.3);
+}
+.quote-submit-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(255,107,0,0.4); }
+.quote-success {
+  display: none;
+  text-align: center;
+  padding: 2.5rem;
+}
+.quote-success.visible { display: block; }
+.quote-success-icon { font-size: 3.5rem; margin-bottom: 1rem; }
+.quote-success h4 {
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1.8rem;
+  letter-spacing: 2px;
+  color: var(--green);
+  margin-bottom: 0.5rem;
+}
+.quote-success p { color: var(--text-mid); font-size: 0.95rem; font-weight: 600; }
+
+/* ── FILTER SUBCATEGORY CHIPS (Lighting subcats etc.) ── */
+.filter-subcat-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 0.6rem;
+  padding-top: 0.6rem;
+  border-top: 1px dashed var(--border);
+}
+.filter-subcat-label {
+  font-size: 0.65rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--text-light);
+  width: 100%;
+  margin-bottom: 0.1rem;
+}
+
+/* Quote button on product cards */
+.get-quote-btn {
+  background: transparent;
+  border: 2px solid var(--orange);
+  color: var(--orange);
+  padding: 5px 10px;
+  border-radius: 50px;
+  font-weight: 800;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'Nunito', sans-serif;
+  margin-left: 4px;
+}
+.get-quote-btn:hover { background: var(--orange); color: white; }
+
+/* ── MOBILE RESPONSIVE ── */
+@media (max-width: 640px) {
+  .top-search-bar { padding: 8px 4%; }
+  .cat-quick-row { top: 112px; padding: 6px 4%; }
+  body.has-cat-row { padding-top: 154px; }
+  .quote-form-grid { grid-template-columns: 1fr; }
+  .quote-body { padding: 1.5rem; }
+  .cart-sidebar { width: 100%; right: -100%; }
+}
+@media (max-width: 900px) {
+  .cat-quick-row { top: 112px; }
+}
+
 /* NAV */
 nav {
   position: fixed;
@@ -909,6 +1237,25 @@ footer {
   </button>
 </nav>
 
+<!-- TOP SEARCH BAR -->
+<div class="top-search-bar">
+  <div class="top-search-wrapper">
+    <input type="text" id="topSearchInput" class="top-search-input" placeholder="🔍  Search lights, fans, MCBs, wires..." autocomplete="off" oninput="handleTopSearch(this.value)" onkeydown="handleSearchKey(event)" onfocus="showSuggestions()" />
+    <span class="top-search-icon">⚡</span>
+    <div class="search-suggestions" id="searchSuggestions"></div>
+  </div>
+</div>
+
+<!-- CATEGORY QUICK ROW -->
+<div class="cat-quick-row" id="catQuickRow">
+  <button class="cat-quick-pill active" data-catkey="all" onclick="quickCatFilter('all',this)">⚡ All Products</button>
+  <button class="cat-quick-pill" data-catkey="lighting" onclick="quickCatFilter('lighting',this)">💡 Lighting</button>
+  <button class="cat-quick-pill" data-catkey="fans" onclick="quickCatFilter('fans',this)">🌀 Fans</button>
+  <button class="cat-quick-pill" data-catkey="appliances" onclick="quickCatFilter('appliances',this)">❄️ Appliances</button>
+  <button class="cat-quick-pill" data-catkey="switchgear" onclick="quickCatFilter('switchgear',this)">⚡ Protection / MCBs</button>
+  <button class="cat-quick-pill" data-catkey="wiring" onclick="quickCatFilter('wiring',this)">🔌 Wiring & Cables</button>
+</div>
+
 <!-- HERO -->
 <section class="hero" id="home">
   <div class="hero-shapes">
@@ -928,6 +1275,7 @@ footer {
     <div class="hero-actions">
       <a href="#products" class="btn-white">🛍 Shop Now</a>
       <a href="#calculator" class="btn-outline-white">📊 Budget Calculator</a>
+      <a href="#quote-section" class="btn-outline-white" style="border-color:var(--amber);color:var(--amber);">📋 Free Quote</a>
     </div>
     <div class="hero-stats">
       <div>
@@ -949,6 +1297,59 @@ footer {
     <div class="hero-ring-2"></div>
     <div class="hero-ring-3"></div>
     <div class="hero-center">⚡</div>
+  </div>
+</section>
+
+<!-- QUOTE REQUEST SECTION -->
+<section id="quote-section">
+  <div class="section-header">
+    <div class="section-tag tag-orange">Free Quotation</div>
+    <h2 class="section-title">Request a Quote</h2>
+    <p class="section-sub">Share your requirement and we'll get back to you with the best price. Fast, free, no commitment.</p>
+  </div>
+  <div class="quote-container">
+    <div class="quote-header">
+      <h3>📋 GET A FREE QUOTE</h3>
+      <p>Fill in your details and we'll contact you within a few hours with pricing & availability</p>
+    </div>
+    <div class="quote-body" id="quoteFormBody">
+      <div class="quote-prefill-notice" id="quotePrefillNotice">
+        📦 Requesting quote for: <strong id="quotePrefillProductName"></strong>
+        &nbsp;<button onclick="clearQuotePrefill()" style="background:none;border:none;cursor:pointer;color:var(--orange);font-weight:800;font-size:0.85rem;">✕ Clear</button>
+      </div>
+      <div class="quote-form-grid">
+        <div class="quote-field">
+          <label class="quote-label">Full Name <span class="req">*</span></label>
+          <input type="text" id="quoteName" class="quote-input" placeholder="e.g. Ramesh Kumar" required />
+        </div>
+        <div class="quote-field">
+          <label class="quote-label">Contact Number <span class="req">*</span></label>
+          <input type="tel" id="quotePhone" class="quote-input" placeholder="e.g. 9876543210" required />
+        </div>
+        <div class="quote-field">
+          <label class="quote-label">Email Address <span style="color:var(--text-light);font-size:0.65rem;">(optional)</span></label>
+          <input type="email" id="quoteEmail" class="quote-input" placeholder="e.g. ramesh@email.com" />
+        </div>
+        <div class="quote-field">
+          <label class="quote-label">Location (City / Area) <span class="req">*</span></label>
+          <input type="text" id="quoteCity" class="quote-input" placeholder="e.g. Meerut, Hapur, Noida..." required />
+        </div>
+        <div class="quote-field full">
+          <label class="quote-label">Product Requirement / Message</label>
+          <textarea id="quoteMessage" class="quote-textarea" placeholder="e.g. I need 20 LED bulbs 9W and 5 MCBs 32A for my new home. Please share best price..."></textarea>
+        </div>
+      </div>
+      <button class="quote-submit-btn" onclick="submitQuote()">
+        📩 Submit Quote Request
+      </button>
+      <p style="text-align:center;font-size:0.78rem;color:var(--text-light);font-weight:600;margin-top:1rem;">We will contact you within 2–4 hours · No spam, no pressure</p>
+    </div>
+    <div class="quote-success" id="quoteSuccess">
+      <div class="quote-success-icon">✅</div>
+      <h4>THANK YOU!</h4>
+      <p>We've received your quote request.<br>Our team will contact you shortly with the best pricing.</p>
+      <button onclick="resetQuoteForm()" style="margin-top:1.5rem;background:var(--light-orange-bg);border:2px solid var(--amber);color:var(--orange);padding:10px 28px;border-radius:50px;font-family:'Nunito',sans-serif;font-weight:800;font-size:0.9rem;cursor:pointer;">Submit Another Request</button>
+    </div>
   </div>
 </section>
 
@@ -1181,15 +1582,15 @@ footer {
       <div class="contact-icon-wrap phone-icon-wrap">📞</div>
       <h4>Call Us</h4>
       <p>Talk to our product expert for queries, pricing & bulk orders</p>
-      <span class="contact-number">+91 99978 66880</span>
-      <a href="tel:+919997866880" class="call-btn">📞 Call Now</a>
+      <span class="contact-number">+91 98765 43210</span>
+      <a href="tel:+919876543210" class="call-btn">📞 Call Now</a>
     </div>
     <div class="contact-card wa-card">
       <div class="contact-icon-wrap wa-icon-wrap">💬</div>
       <h4>WhatsApp Us</h4>
       <p>Message us on WhatsApp for quick response, catalogue & quotes</p>
-      <span class="contact-number">+91 99978 66880</span>
-      <a href="https://wa.me/919997866880?text=Hi%20SafeSpark%20Electrics!%20I%20want%20to%20enquire%20about%20your%20products." target="_blank" class="wa-btn">💬 Chat on WhatsApp</a>
+      <span class="contact-number">+91 98765 43210</span>
+      <a href="https://wa.me/919876543210?text=Hi%20SafeSpark%20Electrics!%20I%20want%20to%20enquire%20about%20your%20products." target="_blank" class="wa-btn">💬 Chat on WhatsApp</a>
     </div>
   </div>
 </section>
@@ -1211,6 +1612,7 @@ footer {
         <li><a href="#calculator">Budget Calculator</a></li>
         <li><a href="#about">About Us</a></li>
         <li><a href="#contact">Contact</a></li>
+        <li><a href="#quote-section" style="color:var(--orange);">📋 Get Quote</a></li>
       </ul>
     </div>
     <div>
@@ -1537,7 +1939,10 @@ function productCardHTML(p) {
           <span class="product-price">${p.price>0?'₹'+p.price.toLocaleString('en-IN'):'Call'}</span>
           ${oldPrice}
         </div>
-        <button class="add-to-cart" id="atc-${p.id}" onclick="addToCart('${p.id}')">+ Cart</button>
+        <div style="display:flex;gap:4px;align-items:center;">
+          <button class="add-to-cart" id="atc-${p.id}" onclick="addToCart('${p.id}')">+ Cart</button>
+          <button class="get-quote-btn" onclick="openQuoteWithProduct('${p.id}','${p.name.replace(/'/g,"\\'")}')">Quote</button>
+        </div>
       </div>
     </div>`;
 }
@@ -1591,7 +1996,12 @@ function updateCartUI() {
       <div class="cart-item-icon">${c.emoji}</div>
       <div class="cart-item-info">
         <div class="cart-item-name">${c.name}</div>
-        <div class="cart-item-sub">${c.brand} × ${c.qty}</div>
+        <div class="cart-item-sub">${c.brand}</div>
+        <div class="cart-item-qty">
+          <button class="ciq-btn" onclick="changeCartQty('${c.id}',-1)">−</button>
+          <input class="ciq-input" type="number" min="1" value="${c.qty}" onchange="setCartQty('${c.id}',this.value)" />
+          <button class="ciq-btn" onclick="changeCartQty('${c.id}',1)">+</button>
+        </div>
         <div class="cart-item-price">₹${(c.price*c.qty).toLocaleString('en-IN')}</div>
       </div>
       <button class="cart-item-remove" onclick="removeFromCart('${c.id}')">✕</button>
@@ -1608,7 +2018,7 @@ function checkout() {
   const total = cart.reduce((s,c)=>s+c.price*c.qty,0);
   const lines = cart.map(c=>`• ${c.name} (${c.brand}) × ${c.qty} = ₹${(c.price*c.qty).toLocaleString('en-IN')}`).join('%0A');
   const msg = `Hi SafeSpark Electrics!%0AI'd like to place an order:%0A%0A${lines}%0A%0ATotal: ₹${total.toLocaleString('en-IN')}%0A%0APlease confirm availability and delivery.`;
-  window.open(`https://wa.me/919997866880?text=${msg}`,'_blank');
+  window.open(`https://wa.me/919876543210?text=${msg}`,'_blank');
 }
 
 // ── CALCULATOR ──
@@ -1675,8 +2085,237 @@ function showToast(msg) {
   setTimeout(()=>t.classList.remove('show'), 2500);
 }
 
+// ══════════════════════════════════════════════
+//  ENHANCED FEATURES
+// ══════════════════════════════════════════════
+
+// ── TOP SEARCH BAR WITH SUGGESTIONS ──
+let searchDebounceTimer = null;
+
+function handleTopSearch(val) {
+  clearTimeout(searchDebounceTimer);
+  searchDebounceTimer = setTimeout(() => {
+    const q = val.trim().toLowerCase();
+    // Mirror to sidebar search
+    const sidebarInput = document.getElementById('searchInput');
+    if (sidebarInput) { sidebarInput.value = val; }
+    activeFilters.search = q;
+    applyFilters();
+    renderSuggestions(q);
+    // Scroll to products section smoothly
+    if (q.length > 1) {
+      const prodSection = document.getElementById('products');
+      if (prodSection) prodSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }, 180);
+}
+
+function fuzzyMatch(str, query) {
+  if (!query) return true;
+  const s = str.toLowerCase();
+  const q = query.toLowerCase();
+  // exact substring
+  if (s.includes(q)) return true;
+  // typo tolerance: check each query word
+  const words = q.split(/\s+/);
+  return words.every(w => {
+    if (s.includes(w)) return true;
+    // 1-char typo tolerance via levenshtein ≤ 1
+    for (let i = 0; i <= s.length - w.length + 1; i++) {
+      const sub = s.substr(i, w.length + 1);
+      if (levenshtein(sub.substr(0, w.length), w) <= 1) return true;
+    }
+    return false;
+  });
+}
+
+function levenshtein(a, b) {
+  const dp = Array.from({length:a.length+1},(_,i)=>Array.from({length:b.length+1},(_,j)=>i||j));
+  for (let i=1;i<=a.length;i++) for (let j=1;j<=b.length;j++)
+    dp[i][j] = a[i-1]===b[j-1] ? dp[i-1][j-1] : 1 + Math.min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1]);
+  return dp[a.length][b.length];
+}
+
+function renderSuggestions(q) {
+  const box = document.getElementById('searchSuggestions');
+  if (!q || q.length < 2) { box.classList.remove('visible'); return; }
+  const matches = products.filter(p => fuzzyMatch(p.name + ' ' + (p.brand||'') + ' ' + (p.subtype||''), q)).slice(0, 7);
+  if (!matches.length) { box.classList.remove('visible'); return; }
+  box.innerHTML = `<div class="suggestion-header">Matching Products</div>` +
+    matches.map(p => `
+      <div class="suggestion-item" onclick="selectSuggestion('${p.id}','${p.name.replace(/'/g,"\\'")}')">
+        <span class="suggestion-emoji">${p.emoji}</span>
+        <span class="suggestion-name">${p.name}</span>
+        <span class="suggestion-meta">${p.brand}</span>
+        <span class="suggestion-price">${p.price > 0 ? '₹'+p.price.toLocaleString('en-IN') : 'Call'}</span>
+      </div>`).join('');
+  box.classList.add('visible');
+}
+
+function selectSuggestion(id, name) {
+  document.getElementById('topSearchInput').value = name;
+  document.getElementById('searchSuggestions').classList.remove('visible');
+  activeFilters.search = name.toLowerCase();
+  if (document.getElementById('searchInput')) document.getElementById('searchInput').value = name;
+  applyFilters();
+  document.getElementById('products').scrollIntoView({ behavior:'smooth', block:'start' });
+}
+
+function showSuggestions() {
+  const val = document.getElementById('topSearchInput').value;
+  if (val.length >= 2) renderSuggestions(val.toLowerCase());
+}
+
+function handleSearchKey(e) {
+  if (e.key === 'Escape') document.getElementById('searchSuggestions').classList.remove('visible');
+  if (e.key === 'Enter') document.getElementById('searchSuggestions').classList.remove('visible');
+}
+
+// Close suggestions on outside click
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('.top-search-wrapper')) {
+    document.getElementById('searchSuggestions').classList.remove('visible');
+  }
+});
+
+// ── QUICK CATEGORY ROW ──
+function quickCatFilter(catkey, btn) {
+  document.querySelectorAll('.cat-quick-pill').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  // Map catkey to sidebar filter
+  // catkey directly maps to catKey in products
+  if (catkey === 'all') {
+    activeFilters.cat = 'all';
+    activeFilters.type = 'all';
+    document.querySelectorAll('#catChips .filter-chip').forEach(b => b.classList.toggle('active', b.dataset.cat === 'all'));
+  } else {
+    // Find which category values match this catKey
+    const matchCats = [...new Set(products.filter(p => p.catKey === catkey).map(p => p.category))];
+    // Set active filters to show all products in this catKey
+    activeFilters._catKeyOverride = catkey;
+    activeFilters.cat = 'all'; // we'll handle via catKey
+    document.querySelectorAll('#catChips .filter-chip').forEach(b => b.classList.remove('active'));
+  }
+  activeFilters._catKeyOverride = catkey === 'all' ? null : catkey;
+  buildTypeChips();
+  applyFilters();
+  document.getElementById('products').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── OVERRIDE applyFilters to support catKey filtering ──
+const _origApplyFilters = applyFilters;
+applyFilters = function() {
+  activeFilters.search   = (document.getElementById('topSearchInput') ? document.getElementById('topSearchInput').value : '') ||
+                           (document.getElementById('searchInput') ? document.getElementById('searchInput').value : '');
+  activeFilters.search   = activeFilters.search.toLowerCase();
+  if (document.getElementById('searchInput')) document.getElementById('searchInput').value = activeFilters.search;
+  activeFilters.priceMin = parseInt(document.getElementById('priceMin').value) || null;
+  activeFilters.priceMax = parseInt(document.getElementById('priceMax').value) || null;
+  activeFilters.sort     = document.getElementById('sortSelect').value;
+
+  let filtered = products.filter(p => {
+    // catKey override from quick row
+    if (activeFilters._catKeyOverride && p.catKey !== activeFilters._catKeyOverride) return false;
+    if (!activeFilters._catKeyOverride && activeFilters.cat !== 'all' && p.category !== activeFilters.cat) return false;
+    if (activeFilters.brand !== 'all' && p.brand !== activeFilters.brand) return false;
+    if (activeFilters.type  !== 'all' && getSubtype(p) !== activeFilters.type) return false;
+    if (activeFilters.search) {
+      const haystack = (p.name + ' ' + (p.brand||'') + ' ' + (p.subtype||'')).toLowerCase();
+      if (!fuzzyMatch(haystack, activeFilters.search)) return false;
+    }
+    if (activeFilters.priceMin && p.price < activeFilters.priceMin) return false;
+    if (activeFilters.priceMax && p.price > activeFilters.priceMax) return false;
+    return true;
+  });
+
+  if (activeFilters.sort === 'price-asc')  filtered.sort((a,b)=>a.price-b.price);
+  else if (activeFilters.sort === 'price-desc') filtered.sort((a,b)=>b.price-a.price);
+  else if (activeFilters.sort === 'name-asc')   filtered.sort((a,b)=>a.name.localeCompare(b.name));
+
+  renderFilteredProducts(filtered);
+  updateActiveTags();
+};
+
+// ── CART QUANTITY CONTROLS ──
+function changeCartQty(id, delta) {
+  const item = cart.find(c => String(c.id) === String(id));
+  if (!item) return;
+  item.qty = Math.max(1, item.qty + delta);
+  updateCartUI();
+}
+
+function setCartQty(id, val) {
+  const qty = Math.max(1, parseInt(val) || 1);
+  const item = cart.find(c => String(c.id) === String(id));
+  if (!item) return;
+  item.qty = qty;
+  updateCartUI();
+}
+
+// ── QUOTE FORM ──
+function openQuoteWithProduct(id, name) {
+  const prefill = document.getElementById('quotePrefillNotice');
+  const prefillName = document.getElementById('quotePrefillProductName');
+  if (prefill && prefillName) {
+    prefillName.textContent = name;
+    prefill.classList.add('visible');
+  }
+  const msgField = document.getElementById('quoteMessage');
+  if (msgField && !msgField.value) {
+    msgField.value = `I'm interested in: ${name}. Please share the best price and availability.`;
+  }
+  document.getElementById('quote-section').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function clearQuotePrefill() {
+  document.getElementById('quotePrefillNotice').classList.remove('visible');
+  document.getElementById('quoteMessage').value = '';
+}
+
+function submitQuote() {
+  const name  = document.getElementById('quoteName').value.trim();
+  const phone = document.getElementById('quotePhone').value.trim();
+  const city  = document.getElementById('quoteCity').value.trim();
+  const email = document.getElementById('quoteEmail').value.trim();
+  const msg   = document.getElementById('quoteMessage').value.trim();
+
+  if (!name)  { alert('Please enter your full name.'); document.getElementById('quoteName').focus(); return; }
+  if (!phone || phone.length < 10) { alert('Please enter a valid 10-digit contact number.'); document.getElementById('quotePhone').focus(); return; }
+  if (!city)  { alert('Please enter your city or area.'); document.getElementById('quoteCity').focus(); return; }
+
+  // Build WhatsApp message
+  const waMsg = `📋 *QUOTE REQUEST — SafeSpark Electrics*%0A%0A` +
+    `👤 Name: ${name}%0A` +
+    `📞 Phone: ${phone}%0A` +
+    (email ? `📧 Email: ${email}%0A` : '') +
+    `📍 Location: ${city}%0A` +
+    (msg ? `%0A💬 Requirement:%0A${msg}` : '');
+
+  // Send via WhatsApp
+  window.open(`https://wa.me/919876543210?text=${waMsg}`, '_blank');
+
+  // Show success
+  document.getElementById('quoteFormBody').style.display = 'none';
+  document.getElementById('quoteSuccess').classList.add('visible');
+}
+
+function resetQuoteForm() {
+  document.getElementById('quoteName').value = '';
+  document.getElementById('quotePhone').value = '';
+  document.getElementById('quoteEmail').value = '';
+  document.getElementById('quoteCity').value = '';
+  document.getElementById('quoteMessage').value = '';
+  document.getElementById('quotePrefillNotice').classList.remove('visible');
+  document.getElementById('quoteFormBody').style.display = '';
+  document.getElementById('quoteSuccess').classList.remove('visible');
+}
+
+// ── INIT EXTRAS ──
+document.body.classList.add('has-cat-row');
+
 // ── INIT ──
 loadProducts();
 </script>
 </body>
 </html>
+Updated 
