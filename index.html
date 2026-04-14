@@ -906,6 +906,7 @@
   <a href="#" onclick="showPage('about');closeMobileNav();">About Us</a>
   <a href="#" onclick="showPage('services');closeMobileNav();">Services</a>
   <a href="#" onclick="showPage('requirement');closeMobileNav();">Post Requirement</a>
+  <a href="#" onclick="showPage('faq');closeMobileNav();">FAQ</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();">Contact</a>
 </nav>
 
@@ -923,6 +924,7 @@
       <a href="#" onclick="showPage('about');return false;">About Us</a>
       <a href="#" onclick="showPage('services');return false;">Services</a>
       <a href="#" onclick="showPage('requirement');return false;">Post Requirement</a>
+      <a href="#" onclick="showPage('faq');return false;">FAQ</a>
       <a href="#" onclick="showPage('contact');return false;">Contact</a>
     </div>
     <div class="nav-cta">
@@ -1386,14 +1388,27 @@
     </div>
   </section>
 
-  <!-- FAQ -->
+</div><!-- /HOME -->
+
+<!-- ══════════════════════════════════════════ -->
+<!-- FAQ PAGE                                   -->
+<!-- ══════════════════════════════════════════ -->
+<div class="page" id="page-faq">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="container">
+      <div class="page-header-content">
+        <div class="label">Common Questions</div>
+        <h1 class="heading-xl white">Frequently Asked Questions</h1>
+        <p class="body-lg" style="color:rgba(255,255,255,0.75);margin-top:12px;max-width:540px;">Everything you need to know about our products, supply process and ordering.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ SECTION -->
   <section class="faq section-pad">
     <div class="container">
-      <div class="faq-header reveal">
-        <div class="label">Common Questions</div>
-        <h2 class="heading-xl">Frequently Asked Questions</h2>
-        <p class="body-lg" style="max-width:500px;margin:16px auto 0;">Answers to the most common questions from our clients and partners.</p>
-      </div>
       <div class="faq-grid">
         <div class="faq-item" onclick="toggleFaq(this)">
           <div class="faq-q">
@@ -1437,11 +1452,34 @@
           </div>
           <div class="faq-a">We offer flexible payment terms for established contractors and builders with a track record. Credit limits and terms are determined on a case-by-case basis after an initial discussion with our accounts team.</div>
         </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            Which brands do you stock?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div class="faq-a">We are authorised distributors for IndoAsian, Havells, Crompton, Bajaj, HPL, Orient, Surya, Halonix and Eveready — covering lighting, MCBs, switchgear, fans, ACs, geysers and home appliances.</div>
+        </div>
+        <div class="faq-item" onclick="toggleFaq(this)">
+          <div class="faq-q">
+            Do you handle complete project electrical supply?
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+          </div>
+          <div class="faq-a">Yes. We offer end-to-end material supply for complete projects — from wiring and switchgear to lighting fixtures and heavy appliances. Share your BOQ and we will quote for the entire requirement.</div>
+        </div>
+      </div>
+
+      <!-- CTA below FAQ -->
+      <div style="text-align:center;margin-top:56px;">
+        <p class="body-lg" style="margin-bottom:24px;">Still have questions? Our team is ready to help.</p>
+        <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+          <a href="#" class="btn btn-primary" onclick="showPage('contact');return false;">Contact Us</a>
+          <a href="https://wa.me/919997866880" class="btn btn-blue" target="_blank">Chat on WhatsApp</a>
+        </div>
       </div>
     </div>
   </section>
 
-</div><!-- /HOME -->
+</div><!-- /FAQ -->
 
 <!-- ══════════════════════════════════════════ -->
 <!-- ABOUT PAGE                                 -->
@@ -1558,16 +1596,13 @@
           <h2 class="heading-lg" style="margin-bottom:16px;">Lighting Solutions</h2>
           <p class="body-md" style="margin-bottom:16px;">From high-efficiency LED panels for corporate offices to industrial high-bay lights for factories, SafeSpark supplies the complete range of lighting products suited for every application.</p>
           <div class="sd-features">
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Commercial LED panels, troffers and downlights (Havells, Crompton, Halonix, Surya)</p></div>
+            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Commercial LED panels, troffers, COB (Chip On Board), SMD (Surface Mounted Device), LED battens, panels, strips, spotlights, bulbs and downlights (Havells, Crompton, Halonix, Surya)</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Industrial high-bay and low-bay fixtures for warehouses and factories</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Outdoor floodlights, street lights and garden lighting</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Decorative and architectural lighting for hospitality and retail</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Emergency and exit lighting systems</p></div>
           </div>
           <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
-        </div>
-        <div class="service-detail-img">
-          <img src="https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?w=800&q=75" alt="Lighting Solutions" style="height:100%;">
         </div>
       </div>
     </div>
@@ -1577,8 +1612,6 @@
   <section class="service-detail reverse">
     <div class="container">
       <div class="grid-2">
-        <div class="service-detail-img">
-          <img src="https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=800&q=75" alt="MCBs and Boards" style="height:100%;">
         </div>
         <div>
           <div class="label">Protection & Distribution</div>
@@ -1605,60 +1638,31 @@
           <h2 class="heading-lg" style="margin-bottom:16px;">Switchgear & Wiring</h2>
           <p class="body-md" style="margin-bottom:16px;">The right wiring is as important as the right fixture. We supply FR, FRLS and armoured cables, modular switches, sockets and industrial switchgear from top brands.</p>
           <div class="sd-features">
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>FR and FRLS house wiring cables from Havells, Orient, Crompton</p></div>
+            <div class="sd-feature"><div class="sd-feature-dot"></div><p>FR and FRLS house wiring cables</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Armoured and unarmoured power cables for industrial use</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Modular switches, sockets, dimmers and smart switches</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Industrial contactors, motor starters and panel components</p></div>
           </div>
           <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
         </div>
-        <div class="service-detail-img">
-          <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=75" alt="Switchgear Wiring" style="height:100%;">
-        </div>
       </div>
     </div>
   </section>
 
   <!-- Service 4 -->
-  <section class="service-detail reverse">
-    <div class="container">
-      <div class="grid-2">
-        <div class="service-detail-img">
-          <img src="https://images.unsplash.com/photo-1617360090524-d36c4b074403?w=800&q=75" alt="Air Conditioners" style="height:100%;">
-        </div>
-        <div>
-          <div class="label">Climate Control</div>
-          <h2 class="heading-lg" style="margin-bottom:16px;">Air Conditioners & Fans</h2>
-          <p class="body-md" style="margin-bottom:16px;">From split ACs for residential apartments to VRF systems for commercial buildings, we provide climate control solutions for every project type.</p>
-          <div class="sd-features">
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Split and window ACs from Crompton, Bajaj and Orient</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Cassette and ducted systems for commercial and hospitality projects</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Ceiling, table, pedestal and wall-mounted fans from all top brands</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Exhaust fans for industrial, commercial and residential use</p></div>
-          </div>
-          <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Service 5 -->
   <section class="service-detail">
     <div class="container">
       <div class="grid-2">
         <div>
           <div class="label">Home & Commercial</div>
-          <h2 class="heading-lg" style="margin-bottom:16px;">Geysers & Appliances</h2>
-          <p class="body-md" style="margin-bottom:16px;">Complete the electrical fit-out of your project with water heaters, geysers and home appliances from trusted brands at bulk pricing.</p>
+          <h2 class="heading-lg" style="margin-bottom:16px;">Comfort & Utility Appliances</h2>
+          <p class="body-md" style="margin-bottom:16px;">Complete the electrical fit-out of your project with Air Conditioners, Coolers, Room Heater, water heaters, geysers, Fans, Exhaust Fans and Home appliances from trusted brands at bulk pricing.</p>
           <div class="sd-features">
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Storage and instant water heaters from Bajaj, Crompton and Eveready</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Geysers for residential apartments, hotels and hostels in bulk</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Home appliances — irons, kettles and other Eveready & Bajaj products</p></div>
           </div>
           <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
-        </div>
-        <div class="service-detail-img">
-          <img src="https://images.unsplash.com/photo-1607400201889-565b1ee75f8e?w=800&q=75" alt="Geysers Appliances" style="height:100%;">
         </div>
       </div>
     </div>
@@ -1910,6 +1914,7 @@
             <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
             <li><a href="#" onclick="showPage('services');return false;">Services</a></li>
             <li><a href="#" onclick="showPage('requirement');return false;">Post Requirement</a></li>
+            <li><a href="#" onclick="showPage('faq');return false;">FAQ</a></li>
             <li><a href="#" onclick="showPage('contact');return false;">Contact Us</a></li>
           </ul>
         </div>
