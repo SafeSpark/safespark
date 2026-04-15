@@ -870,6 +870,84 @@
 </head>
 <body>
 
+
+<!-- ══════════════════════════════════════════ -->
+<!-- UNIFIED QUOTE / REQUIREMENT MODAL          -->
+<!-- ══════════════════════════════════════════ -->
+<div id="quoteModal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(10,46,92,0.72);backdrop-filter:blur(4px);overflow-y:auto;padding:20px 16px;">
+  <div style="max-width:620px;margin:0 auto;background:var(--white);border-radius:16px;box-shadow:0 24px 80px rgba(10,46,92,0.28);overflow:hidden;">
+    <!-- Header -->
+    <div style="background:var(--blue);padding:28px 36px 24px;position:relative;">
+      <button onclick="closeQuoteModal()" style="position:absolute;top:16px;right:20px;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:20px;width:36px;height:36px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+      <div style="font-family:var(--font-display);font-size:13px;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--yellow);margin-bottom:8px;">SafeSpark</div>
+      <h2 style="font-family:var(--font-display);font-size:28px;font-weight:900;color:#fff;line-height:1.1;">Get a Quote / Post Requirement</h2>
+      <p style="color:rgba(255,255,255,0.72);font-size:14px;margin-top:8px;">Fill in the details below and our team will get back within 24 hours.</p>
+    </div>
+    <!-- Form -->
+    <div style="padding:32px 36px 36px;">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Your Name *</label>
+          <input type="text" id="m-name" placeholder="Full name">
+        </div>
+        <div class="form-group">
+          <label>Phone *</label>
+          <input type="tel" id="m-phone" placeholder="+91 XXXXX XXXXX">
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="m-email" placeholder="your@email.com">
+        </div>
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id="m-city" placeholder="Your city">
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Requirement Type</label>
+        <select id="m-type">
+          <option value="">— Select —</option>
+          <option>Lighting — LED / Fixtures / Street</option>
+          <option>MCBs, DB Boards & Switchgear</option>
+          <option>Wiring & Cables</option>
+          <option>Air Conditioners</option>
+          <option>Fans & Appliances</option>
+          <option>Complete Project / Bulk Supply</option>
+          <option>Government / Institutional Tender</option>
+          <option>Other</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Requirement Details</label>
+        <textarea id="m-message" style="min-height:100px;" placeholder="Describe your requirement — quantity, brands preferred, timeline, project type, etc."></textarea>
+      </div>
+      <button class="btn btn-primary" style="width:100%;justify-content:center;font-size:17px;padding:16px;" onclick="submitQuoteModal()">
+        <svg viewBox="0 0 20 20" fill="currentColor" style="width:18px;height:18px;"><path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z"/></svg>
+        Submit Requirement
+      </button>
+      <div class="success-msg" id="modalSuccess" style="margin-top:16px;">
+        ✅ Thank you! We've received your requirement. Our team will contact you within 24 hours.<br>
+        <small style="color:var(--gray-500);display:block;margin-top:6px;">Inquiry saved. You can also WhatsApp us at <a href="https://wa.me/919997866880" style="color:var(--blue-light);">+91 9997866880</a></small>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LEAD INBOX (visible to admin via #leads hash) -->
+<div id="leadsPanel" style="display:none;position:fixed;inset:0;z-index:9998;background:#0B1728;overflow-y:auto;padding:24px;">
+  <div style="max-width:900px;margin:0 auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:24px;">
+      <h2 style="font-family:var(--font-display);font-size:32px;font-weight:900;color:#fff;">📋 Lead Inbox</h2>
+      <div style="display:flex;gap:12px;">
+        <button onclick="exportLeadsCSV()" style="background:var(--yellow);color:var(--blue);border:none;padding:10px 20px;border-radius:8px;font-family:var(--font-display);font-weight:700;cursor:pointer;">Export CSV</button>
+        <button onclick="document.getElementById('leadsPanel').style.display='none'" style="background:rgba(255,255,255,0.12);color:#fff;border:none;padding:10px 20px;border-radius:8px;font-family:var(--font-display);font-weight:700;cursor:pointer;">Close</button>
+      </div>
+    </div>
+    <div id="leadsTable" style="color:#fff;font-size:14px;"></div>
+  </div>
+</div>
 <!-- TOP ANNOUNCEMENT BAR -->
 <div class="top-bar">
   🎉 Now Supplying Pan India — Fast Quotation within 24 Hours
@@ -889,9 +967,9 @@
 
 <!-- STICKY SIDE BUTTONS -->
 <div class="sticky-cta">
-  <a href="#" class="s-quote" onclick="showPage('requirement');return false;">
+  <a href="#" class="s-quote" onclick="openQuoteModal();return false;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
-    Get Quote
+    Get a Quote
   </a>
   <a href="https://wa.me/919997866880" class="s-wa" target="_blank">
     <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.51A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.213-3.728.889.924-3.638-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -904,8 +982,7 @@
   <button class="mobile-nav-close" onclick="closeMobileNav()">✕</button>
   <a href="#" onclick="showPage('home');closeMobileNav();">Home</a>
   <a href="#" onclick="showPage('about');closeMobileNav();">About Us</a>
-  <a href="#" onclick="showPage('services');closeMobileNav();">Services</a>
-  <a href="#" onclick="showPage('requirement');closeMobileNav();">Post Requirement</a>
+  <a href="#" onclick="scrollToServices();closeMobileNav();">Services</a>
   <a href="#" onclick="showPage('faq');closeMobileNav();">FAQ</a>
   <a href="#" onclick="showPage('contact');closeMobileNav();">Contact</a>
 </nav>
@@ -922,14 +999,13 @@
     <div class="nav-links">
       <a href="#" onclick="showPage('home');return false;">Home</a>
       <a href="#" onclick="showPage('about');return false;">About Us</a>
-      <a href="#" onclick="showPage('services');return false;">Services</a>
-      <a href="#" onclick="showPage('requirement');return false;">Post Requirement</a>
+      <a href="#" onclick="scrollToServices();return false;">Services</a>
       <a href="#" onclick="showPage('faq');return false;">FAQ</a>
       <a href="#" onclick="showPage('contact');return false;">Contact</a>
     </div>
     <div class="nav-cta">
       <span class="nav-phone">📞 9997866880</span>
-      <a href="#" class="btn btn-primary btn-sm" onclick="showPage('requirement');return false;">Get Quote</a>
+      <a href="#" class="btn btn-primary btn-sm" onclick="openQuoteModal();return false;">Get a Quote</a>
     </div>
     <div class="hamburger" onclick="openMobileNav()">
       <span></span><span></span><span></span>
@@ -958,12 +1034,12 @@
         SafeSpark is your single-source partner for all electrical needs — from premium lighting and MCBs to switchgear, ACs, fans and appliances. We serve builders, contractors, homeowners, interior designers, MSMEs and government projects with speed and reliability.
       </p>
       <div class="hero-btns">
-        <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">
+        <a href="#" class="btn btn-primary" onclick="openQuoteModal();return false;">
           <svg viewBox="0 0 20 20" fill="currentColor" style="width:18px;height:18px;"><path d="M9 2a1 1 0 000 2h2a1 1 0 100-2H9z"/><path fill-rule="evenodd" d="M4 5a2 2 0 012-2 3 3 0 003 3h2a3 3 0 003-3 2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V5zm3 4a1 1 0 000 2h.01a1 1 0 100-2H7zm3 0a1 1 0 000 2h3a1 1 0 100-2h-3zm-3 4a1 1 0 100 2h.01a1 1 0 100-2H7zm3 0a1 1 0 100 2h3a1 1 0 100-2h-3z" clip-rule="evenodd"/></svg>
-          Post Your Requirement
+          Get a Quote / Post Requirement
         </a>
-        <a href="#" class="btn btn-outline" onclick="showPage('requirement');return false;">
-          Get a Quote
+        <a href="https://wa.me/919997866880" class="btn btn-outline" target="_blank">
+          Chat on WhatsApp
         </a>
       </div>
       <div class="hero-stats">
@@ -1008,7 +1084,7 @@
   </div>
 
   <!-- SERVICES -->
-  <section class="services section-pad">
+  <section class="services section-pad" id="home-services">
     <div class="container">
       <div class="services-header">
         <div class="label">Our Offerings</div>
@@ -1026,8 +1102,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18h6M10 22h4M12 2a7 7 0 017 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 01-2 2h-4a2 2 0 01-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 017-7z"/></svg>
             </div>
             <div class="service-card-title">Lighting Solutions</div>
-            <p>Commercial LED panels, industrial high-bays, outdoor floodlights, decorative fixtures, street lighting — indoor and outdoor, all top brands.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <p>Commercial LED panels, industrial high-bays, outdoor floodlights, decorative fixtures, street lighting — complete indoor and outdoor solutions for every project scale.</p>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
         <!-- Card 2 -->
@@ -1040,8 +1116,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
             </div>
             <div class="service-card-title">MCB & Distribution Boards</div>
-            <p>Havells, IndoAsian & HPL MCBs, RCCBs, ELCBs and complete distribution board assemblies for residential and commercial projects.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <p>MCBs, RCCBs, ELCBs and complete distribution board assemblies for residential and commercial projects — top-quality, BIS compliant.</p>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
         <!-- Card 3 -->
@@ -1054,8 +1130,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
             </div>
             <div class="service-card-title">Switchgear & Wiring</div>
-            <p>Industrial-grade cables, FR wiring, FRLS cables, modular switches & sockets from Havells, Crompton and Orient for all installation types.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <p>Industrial-grade cables, FR wiring, FRLS cables, modular switches & sockets for all installation types — residential, commercial and industrial.</p>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
         <!-- Card 4 -->
@@ -1068,8 +1144,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="10" rx="2"/><path d="M7 17v2M12 17v2M17 17v2M2 13h20"/></svg>
             </div>
             <div class="service-card-title">Air Conditioners</div>
-            <p>Split, cassette and VRF systems from Crompton, Bajaj and Orient for offices, hotels, hospitals and large commercial spaces. Bulk orders welcome.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <p>Split, cassette and VRF systems for offices, hotels, hospitals and large commercial spaces — energy-efficient, bulk orders welcome.</p>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
         <!-- Card 5 -->
@@ -1082,8 +1158,8 @@
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22V12M12 12C12 6 6 6 6 3M12 12C12 6 18 6 18 3M6 22h12"/></svg>
             </div>
             <div class="service-card-title">Geysers & Appliances</div>
-            <p>Water heaters, storage geysers, exhaust fans, ceiling fans and home appliances from Bajaj, Crompton and Eveready for real-estate projects.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <p>Water heaters, storage geysers, exhaust fans, ceiling fans and home appliances — complete range for real-estate and residential projects.</p>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
         <!-- Card 6 -->
@@ -1097,7 +1173,7 @@
             </div>
             <div class="service-card-title">Project Supply</div>
             <p>End-to-end electrical material procurement for construction, government tenders and large-scale infrastructure — single-point accountability.</p>
-            <a href="#" class="btn btn-blue btn-sm" onclick="showPage('requirement');return false;">Request Quote</a>
+            <a href="#" class="btn btn-blue btn-sm" onclick="openQuoteModal();return false;">Request Quote</a>
           </div>
         </div>
       </div>
@@ -1254,8 +1330,8 @@
           <p class="body-lg" style="color:rgba(255,255,255,0.75);margin-top:16px;">Whether it's a bulk material order, a government tender, or a complete project supply — share your requirement and our team will get back to you within 24 hours.</p>
         </div>
         <div class="lead-gen-btns">
-          <a href="#" class="btn btn-primary" style="font-size:18px;padding:18px 36px;" onclick="showPage('requirement');return false;">
-            Post Your Requirement
+          <a href="#" class="btn btn-primary" style="font-size:18px;padding:18px 36px;" onclick="openQuoteModal();return false;">
+            Get a Quote / Post Requirement
           </a>
           <a href="https://wa.me/919997866880" class="wa-btn" target="_blank">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.554 4.118 1.528 5.855L0 24l6.335-1.51A11.955 11.955 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.013-1.374l-.36-.213-3.728.889.924-3.638-.234-.373A9.818 9.818 0 1112 21.818z"/></svg>
@@ -1279,8 +1355,8 @@
           <div class="counter-label">Projects Completed</div>
         </div>
         <div class="counter-item reveal reveal-delay-2">
-          <div class="counter-num" data-target="1200">0</div>
-          <div class="counter-label">Happy Clients</div>
+          <div class="counter-num" data-target="500">0</div>
+          <div class="counter-label">Happy Customers</div>
         </div>
         <div class="counter-item reveal reveal-delay-3">
           <div class="counter-num" data-target="24">0</div>
@@ -1325,7 +1401,7 @@
         </div>
       </div>
       <div style="text-align:center;margin-top:52px;">
-        <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Start Your Inquiry Now</a>
+        <a href="#" class="btn btn-primary" onclick="openQuoteModal();return false;">Start Your Inquiry Now</a>
       </div>
     </div>
   </section>
@@ -1567,7 +1643,7 @@
           <h2 class="heading-xl white">Ready to Work Together?</h2>
           <p class="body-lg" style="color:rgba(255,255,255,0.75);margin-top:12px;">Post your electrical requirement and get a customized quote within 24 hours.</p>
         </div>
-        <a href="#" class="btn btn-primary" style="font-size:17px;padding:18px 36px;" onclick="showPage('requirement');return false;">Post Your Requirement</a>
+        <a href="#" class="btn btn-primary" style="font-size:17px;padding:18px 36px;" onclick="openQuoteModal();return false;">Get a Quote / Post Requirement</a>
       </div>
     </div>
   </section>
@@ -1602,7 +1678,7 @@
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Decorative and architectural lighting for hospitality and retail</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Emergency and exit lighting systems</p></div>
           </div>
-          <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
+          <a href="#" class="btn btn-primary" onclick="openQuoteModal();return false;">Request a Quote</a>
         </div>
       </div>
     </div>
@@ -1623,46 +1699,7 @@
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Main distribution boards (MDBs) and sub-distribution boards (SDBs)</p></div>
             <div class="sd-feature"><div class="sd-feature-dot"></div><p>Surge protection devices, isolators and changeover switches</p></div>
           </div>
-          <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Service 3 -->
-  <section class="service-detail">
-    <div class="container">
-      <div class="grid-2">
-        <div>
-          <div class="label">Wiring & Control</div>
-          <h2 class="heading-lg" style="margin-bottom:16px;">Switchgear & Wiring</h2>
-          <p class="body-md" style="margin-bottom:16px;">The right wiring is as important as the right fixture. We supply FR, FRLS and armoured cables, modular switches, sockets and industrial switchgear from top brands.</p>
-          <div class="sd-features">
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>FR and FRLS house wiring cables</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Armoured and unarmoured power cables for industrial use</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Modular switches, sockets, dimmers and smart switches</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Industrial contactors, motor starters and panel components</p></div>
-          </div>
-          <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Service 4 -->
-  <section class="service-detail">
-    <div class="container">
-      <div class="grid-2">
-        <div>
-          <div class="label">Home & Commercial</div>
-          <h2 class="heading-lg" style="margin-bottom:16px;">Comfort & Utility Appliances</h2>
-          <p class="body-md" style="margin-bottom:16px;">Complete the electrical fit-out of your project with Air Conditioners, Coolers, Room Heater, water heaters, geysers, Fans, Exhaust Fans and Home appliances from trusted brands at bulk pricing.</p>
-          <div class="sd-features">
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Storage and instant water heaters from Bajaj, Crompton and Eveready</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Geysers for residential apartments, hotels and hostels in bulk</p></div>
-            <div class="sd-feature"><div class="sd-feature-dot"></div><p>Home appliances — irons, kettles and other Eveready & Bajaj products</p></div>
-          </div>
-          <a href="#" class="btn btn-primary" onclick="showPage('requirement');return false;">Request a Quote</a>
+          <a href="#" class="btn btn-primary" onclick="openQuoteModal();return false;">Request a Quote</a>
         </div>
       </div>
     </div>
@@ -1678,7 +1715,7 @@
           <h2 class="heading-xl white">Need a Complete Project Supply?</h2>
           <p class="body-lg" style="color:rgba(255,255,255,0.75);margin-top:12px;">Share your BOQ or project details and we'll handle the rest — sourcing, pricing and delivery.</p>
         </div>
-        <a href="#" class="btn btn-primary" style="font-size:17px;padding:18px 36px;" onclick="showPage('requirement');return false;">Post Your Requirement</a>
+        <a href="#" class="btn btn-primary" style="font-size:17px;padding:18px 36px;" onclick="openQuoteModal();return false;">Get a Quote / Post Requirement</a>
       </div>
     </div>
   </section>
@@ -1834,7 +1871,7 @@
               </div>
               <div>
                 <h5>Email</h5>
-                <a href="email:jeetent2013@gmail.com" style="font-size:16px;color:var(--blue-light);"><span class="__cf_email__" data-cfemail="4d24232b220d3e2c2b283e3d2c3f26632423">[email&#160;protected]</span></a>
+                <a href="mailto:jeetent2013@gmail.com" style="font-size:16px;color:var(--blue-light);">jeetent2013@gmail.com</a>
                 <p>We respond within 24 hours</p>
               </div>
             </div>
@@ -1912,8 +1949,8 @@
           <ul>
             <li><a href="#" onclick="showPage('home');return false;">Home</a></li>
             <li><a href="#" onclick="showPage('about');return false;">About Us</a></li>
-            <li><a href="#" onclick="showPage('services');return false;">Services</a></li>
-            <li><a href="#" onclick="showPage('requirement');return false;">Post Requirement</a></li>
+            <li><a href="#" onclick="scrollToServices();return false;">Services</a></li>
+            <li><a href="#" onclick="openQuoteModal();return false;">Get a Quote</a></li>
             <li><a href="#" onclick="showPage('faq');return false;">FAQ</a></li>
             <li><a href="#" onclick="showPage('contact');return false;">Contact Us</a></li>
           </ul>
@@ -1937,7 +1974,7 @@
           </div>
           <div class="footer-contact-item">
             <div class="footer-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg></div>
-            <div class="footer-contact-text"><strong>Email</strong><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="442d2a222b0437252221373425362f6a2d2a">[email&#160;protected]</a></div>
+            <div class="footer-contact-text"><strong>Email</strong><a href="mailto:jeetent2013@gmail.com" style="color:rgba(255,255,255,0.55);">jeetent2013@gmail.com</a></div>
           </div>
           <div class="footer-contact-item">
             <div class="footer-contact-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/></svg></div>
@@ -1966,6 +2003,131 @@
 </footer>
 
 <script>
+  /* ── QUOTE MODAL ──────────────────────────── */
+  function scrollToServices() {
+    showPage('home');
+    setTimeout(function() {
+      const el = document.getElementById('home-services');
+      if (el) el.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 150);
+  }
+
+  function openQuoteModal() {
+    document.getElementById('quoteModal').style.display = 'block';
+    document.body.style.overflow = 'hidden';
+  }
+  function closeQuoteModal() {
+    document.getElementById('quoteModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+  // Close modal on backdrop click
+  document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('quoteModal').addEventListener('click', function(e) {
+      if (e.target === this) closeQuoteModal();
+    });
+    // Show leads panel if URL hash is #leads
+    if (window.location.hash === '#leads') showLeadsPanel();
+  });
+
+  /* ── LEAD STORAGE & SUBMISSION ────────────── */
+  function getLeads() {
+    try { return JSON.parse(localStorage.getItem('ss_leads') || '[]'); } catch(e) { return []; }
+  }
+  function saveLeads(leads) {
+    localStorage.setItem('ss_leads', JSON.stringify(leads));
+  }
+  function submitQuoteModal() {
+    const name = document.getElementById('m-name').value.trim();
+    const phone = document.getElementById('m-phone').value.trim();
+    if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+    const lead = {
+      id: Date.now(),
+      date: new Date().toLocaleString('en-IN', {timeZone:'Asia/Kolkata'}),
+      name: name,
+      phone: phone,
+      email: document.getElementById('m-email').value.trim(),
+      city: document.getElementById('m-city').value.trim(),
+      type: document.getElementById('m-type').value,
+      message: document.getElementById('m-message').value.trim(),
+      source: 'Quote Modal'
+    };
+    // Save to localStorage
+    const leads = getLeads();
+    leads.unshift(lead);
+    saveLeads(leads);
+    // Send to Google Sheets (replace SHEET_URL with your actual Google Apps Script URL)
+    const SHEET_URL = 'https://script.google.com/macros/s/YOUR_SCRIPT_ID/exec';
+    if (SHEET_URL.indexOf('YOUR_SCRIPT_ID') === -1) {
+      fetch(SHEET_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(lead)
+      }).catch(function(){});
+    }
+    // Show success
+    document.getElementById('modalSuccess').classList.add('show');
+    ['m-name','m-phone','m-email','m-city','m-message','m-type'].forEach(function(id) {
+      const el = document.getElementById(id); if(el) el.value = '';
+    });
+    setTimeout(function() {
+      document.getElementById('modalSuccess').classList.remove('show');
+      closeQuoteModal();
+    }, 5000);
+  }
+
+  /* ── LEADS PANEL (Admin View) ─────────────── */
+  function showLeadsPanel() {
+    const leads = getLeads();
+    const panel = document.getElementById('leadsPanel');
+    const table = document.getElementById('leadsTable');
+    if (!leads.length) {
+      table.innerHTML = '<p style="color:rgba(255,255,255,0.5);padding:40px 0;text-align:center;">No leads captured yet. When customers submit the form, leads will appear here.</p>';
+    } else {
+      const rows = leads.map(function(l) {
+        return '<tr style="border-bottom:1px solid rgba(255,255,255,0.07);">' +
+          '<td style="padding:12px 10px;color:rgba(255,255,255,0.5);font-size:12px;white-space:nowrap;">' + l.date + '</td>' +
+          '<td style="padding:12px 10px;font-weight:700;">' + l.name + '</td>' +
+          '<td style="padding:12px 10px;"><a href="tel:' + l.phone + '" style="color:var(--yellow);">' + l.phone + '</a></td>' +
+          '<td style="padding:12px 10px;">' + (l.email ? '<a href="mailto:'+l.email+'" style="color:rgba(255,255,255,0.65);">'+l.email+'</a>' : '—') + '</td>' +
+          '<td style="padding:12px 10px;color:rgba(255,255,255,0.7);">' + (l.city || '—') + '</td>' +
+          '<td style="padding:12px 10px;color:rgba(255,255,255,0.6);font-size:12px;">' + (l.type || '—') + '</td>' +
+          '<td style="padding:12px 10px;color:rgba(255,255,255,0.55);font-size:12px;max-width:200px;">' + (l.message || '—').substring(0,80) + '</td>' +
+        '</tr>';
+      }).join('');
+      table.innerHTML = '<div style="overflow-x:auto;"><table style="width:100%;border-collapse:collapse;">' +
+        '<thead><tr style="background:rgba(245,166,35,0.12);"><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">DATE</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">NAME</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">PHONE</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">EMAIL</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">CITY</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">TYPE</th><th style="padding:10px;text-align:left;color:var(--yellow);font-family:var(--font-display);font-size:12px;letter-spacing:1px;">MESSAGE</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '<p style="color:rgba(255,255,255,0.35);font-size:12px;margin-top:16px;">Total leads: ' + leads.length + ' | Go to <strong style="color:var(--yellow);">' + window.location.href.split('#')[0] + '#leads</strong> to view this panel</p>';
+    }
+    panel.style.display = 'block';
+  }
+  function exportLeadsCSV() {
+    const leads = getLeads();
+    if (!leads.length) { alert('No leads to export.'); return; }
+    const header = ['Date','Name','Phone','Email','City','Type','Message'];
+    const rows = leads.map(function(l) {
+      return [l.date,l.name,l.phone,l.email,l.city,l.type,(l.message||'').replace(/,/g,';')].map(function(v){return '"'+(v||'')+'"';}).join(',');
+    });
+    const csv = [header.join(','), ...rows].join('\n');
+    const a = document.createElement('a');
+    a.href = 'data:text/csv;charset=utf-8,' + encodeURIComponent(csv);
+    a.download = 'safespark_leads_' + new Date().toISOString().slice(0,10) + '.csv';
+    a.click();
+  }
+  // Also capture contact form submissions as leads
+  function submitContactAsLead() {
+    const name = document.getElementById('c-name').value.trim();
+    const phone = document.getElementById('c-phone').value.trim();
+    const msg = document.getElementById('c-msg').value.trim();
+    if (name && phone) {
+      const lead = {
+        id: Date.now(), date: new Date().toLocaleString('en-IN',{timeZone:'Asia/Kolkata'}),
+        name:name, phone:phone, email:'', city:'', type:'Contact Form', message:msg, source:'Contact Page'
+      };
+      const leads = getLeads(); leads.unshift(lead); saveLeads(leads);
+    }
+  }
+
   /* ── PAGE NAVIGATION ──────────────────────── */
   function showPage(id) {
     document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
@@ -1992,6 +2154,7 @@
     const name = document.getElementById('c-name').value.trim();
     const phone = document.getElementById('c-phone').value.trim();
     if (!name || !phone) { alert('Please enter your name and phone number.'); return; }
+    submitContactAsLead();
     document.getElementById('contactSuccess').classList.add('show');
     ['c-name','c-phone','c-msg'].forEach(id => { const el = document.getElementById(id); if(el) el.value=''; });
     setTimeout(() => document.getElementById('contactSuccess').classList.remove('show'), 6000);
@@ -2035,6 +2198,7 @@
     });
   }
   window.addEventListener('scroll', runCounters, { passive: true });
+  document.addEventListener('keydown', function(e) { if(e.key==='Escape') closeQuoteModal(); });
   window.addEventListener('load', () => { checkReveals(); setTimeout(runCounters, 500); });
 </script>
 </body>
