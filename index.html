@@ -2112,6 +2112,10 @@ fetch(SHEET_URL, {
         name:name, phone:phone, email:'', city:'', type:'Contact Form', message:msg, source:'Contact Page'
       };
       const leads = getLeads(); leads.unshift(lead); saveLeads(leads);
+      const SHEET_URL = 'https://script.google.com/macros/s/AKfycbxvdV4BhFQ4rRRMERMcGSXmiA_dDMLukHejUmiLLXP5qo-sOsA7Oq1vemd_ygTIdcF4/exec';
+      const formData = new FormData();
+      formData.append('data', JSON.stringify(lead));
+      fetch(SHEET_URL, { method: 'POST', body: formData }).catch(function(){});
     }
   }
 
